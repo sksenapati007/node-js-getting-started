@@ -9,6 +9,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+app.get('/times', (req, res) => {
+  const times = Number(process.env.TIMES) || 5
+  const result = Array.from({ length: times }, (_, i) => i).join(' ')
+  res.send(`<h1>Times</h1><p>${result}</p>${formatFooter()}`)
+})
+
 app.get('/', (req, res) => {
   console.log(`Rendering 'pages/index' for route '/'`)
   res.render('pages/index')
